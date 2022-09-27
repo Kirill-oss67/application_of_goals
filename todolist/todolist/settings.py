@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-r!)^+-7fenk@k^gjm!(js9d=hsj^#xvh(a0iof+%g@w))$p2a%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'core'
 ]
 
 MIDDLEWARE = [
@@ -75,8 +76,12 @@ WSGI_APPLICATION = 'todolist.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'todolist_db',
+        'USER': 'admin',
+        'PASSWORD': '1q2w3e4r5t',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
