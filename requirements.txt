@@ -1,2 +1,4 @@
 Django==4.0.1
 psycopg2-binary
+django-environ
+environ

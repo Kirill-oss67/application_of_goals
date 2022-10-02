@@ -20,7 +20,7 @@
 
 Создал первое приложение "core"
 
-Создал модель User в core.models
+Создал модель User в core.models наследовавшись от AbstractUser
 
 ## run database
 docker run --name "postgresql" -e POSTGRES_PASSWORD="1q2w3e4r5t" -e POSTGRES_USER="admin" -e POSTGRES_DB="todolist_db" -p 5432:5432 -d postgres:13.0-alpine
