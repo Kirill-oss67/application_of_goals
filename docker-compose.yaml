@@ -2,6 +2,16 @@ version: '3.9'
 
 services:
 
+  front:
+    image: sermalenk/skypro-front:lesson-34
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgres
+      - api
+    networks:
+      - backend_nw
+
   postgres:
     image: postgres:13.0-alpine
     restart: always
@@ -10,12 +20,39 @@ services:
     volumes:
       - pg_data_todolist:/var/lib/postgresql/data
     healthcheck:
-      test: pg_isready -U postgres
+      test: [ "CMD-SHELL", "pg_isready -U admin -d todolist_db" ]
       interval: 5s
       timeout: 3s
       retries: 3
     ports:
-      - "5432:5432"
+      - "5433:5433"
+    networks:
+      - backend_nw
+
+  api:
+    build:
+      context: .
+    ports:
+      - '8000:80'
+    depends_on:
+      postgres:
+        condition: service_healthy
+      migrations:
+        condition: service_completed_successfully
+    env_file:
+      - todolist/.env
+    networks:
+      - backend_nw
+
+  migrations:
+    build:
+      context: .
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - todolist/.env
+    command: python ./todolist/manage.py migrate
     networks:
       - backend_nw
 
@@ -25,4 +62,6 @@ volumes:
 networks:
   backend_nw:
     driver: bridge
+
+
 
