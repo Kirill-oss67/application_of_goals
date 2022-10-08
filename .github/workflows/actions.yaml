@@ -8,6 +8,7 @@ jobs:
         uses: actions/checkout@v2
       - name: docker build
         run: docker build -t ${{ secrets.DOCKER_NAME }}/application_of_goals:$GITHUB_REF_NAME-$GITHUB_RUN_ID .
+
 #      - name: login
 #        run: docker login -u ${{ secrets.DOCKER_NAME }} -p ${{ secrets.DOCKER_TOKEN }}
 #      - name: push
