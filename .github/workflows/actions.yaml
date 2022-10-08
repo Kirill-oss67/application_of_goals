@@ -9,7 +9,7 @@ jobs:
       - name: docker build
         run: docker build -t kirill-oss67/application_of_goals:$GITHUB_REF_NAME-$GITHUB_RUN_ID .
       - name: docker hub login
-        run: echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_NAME }} --password-stdin
+        run: docker login -u ${{ secrets.DOCKER_NAME }} -p ${{ secrets.DOCKER_TOKEN }}
       - name: docker push
         run: docker push kirill-oss67/application_of_goals:$GITHUB_REF_NAME-$GITHUB_RUN_ID
 
