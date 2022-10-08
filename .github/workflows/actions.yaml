@@ -1,7 +1,7 @@
 name: CI actions
 on: [push]
 jobs:
-  build and push:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: clone code
