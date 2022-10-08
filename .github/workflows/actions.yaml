@@ -7,7 +7,7 @@ jobs:
       - name: clone code
         uses: actions/checkout@v2
       - name: docker build
-        run: docker build -t Kirill-oss67/application_of_goals:$GITHUB_REF_NAME-$GITHUB_RUN_ID .
+        run: docker build -t kirill-oss67/application_of_goals:$GITHUB_REF_NAME-$GITHUB_RUN_ID .
 
 #      - name: login
 #        run: docker login -u ${{ secrets.DOCKER_NAME }} -p ${{ secrets.DOCKER_TOKEN }}
