@@ -11,7 +11,7 @@ jobs:
       - name: docker hub login
         run: echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_NAME }} --password-stdin
       - name: docker push
-        run: docker push kirill-oss67/application_of_goals:$GITHUB_REF_NAME-$GITHUB_RUN_ID
+        run: docker push yakovkirilldeveloper/application_of_goals:$GITHUB_REF_NAME-$GITHUB_RUN_ID
 
 #      - name: login
 #        run: docker login -u ${{ secrets.DOCKER_NAME }} -p ${{ secrets.DOCKER_TOKEN }}
