@@ -16,31 +16,32 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
+
     steps:
       - name: clone code
         uses: actions/checkout@v2
-#      - name: render configs
-#        run: |
-#          mkdir deploy
-#          cat docker-compose-ci.yaml | envsubst > deploy/docker-compose.yaml
-#      - name: copy to server
-#        uses: appleboy/scp-action@master
-#        with:
-#          host: ${{ secrets.HOST }}
-#          username: ${{ secrets.USERNAME }}
-#          password: ${{ secrets.PASSWORD }}
-#          source: "deploy/docker-compose.yaml"
-#          target: "flask_api_ci"
-#          strip_components: 1
-#      - name: deploy app
-#        uses: appleboy/ssh-action@master
-#        with:
-#          host: ${{ secrets.HOST }}
-#          username: ${{ secrets.USERNAME }}
-#          password: ${{ secrets.PASSWORD }}
-#          script: |
-#            cd flask_api_ci
-#            echo ${{ secrets.PASSWORD }} | sudo -S docker-compose up -d
+      - name: render configs
+        run: |
+          mkdir deploy
+          cat docker-compose-ci.yaml | envsubst > deploy/docker-compose.yaml
+      - name: copy to server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          source: "deploy/docker-compose.yaml"
+          target: "django_api"
+          strip_components: 1
+      - name: deploy app
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            cd flask_api_ci
+            echo ${{ secrets.PASSWORD }} | sudo -S docker-compose up -d
 
 
 
