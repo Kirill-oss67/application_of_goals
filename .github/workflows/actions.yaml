@@ -7,7 +7,7 @@ jobs:
       - name: clone code
         uses: actions/checkout@v2
       - name: docker build
-        run: docker build -t kirill-oss67/application_of_goals:$GITHUB_REF_NAME-$GITHUB_RUN_ID .
+        run: docker build -t yakovkirilldeveloper/application_of_goals:$GITHUB_REF_NAME-$GITHUB_RUN_ID .
       - name: docker hub login
         run: echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_NAME }} --password-stdin
       - name: docker push
