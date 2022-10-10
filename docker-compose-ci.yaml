@@ -1,6 +1,6 @@
 version: '3.9'
 services:
-  flask_web:
+  django_veb:
     image: yakovkirilldeveloper/application_of_goals:$GITHUB_REF_NAME-$GITHUB_RUN_ID
     ports:
       - 80:80
