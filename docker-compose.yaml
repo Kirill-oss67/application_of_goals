@@ -53,8 +53,7 @@ services:
     env_file:
       - todolist/.env_example
     command: python ./todolist/manage.py migrate
-    networks:
-      - backend_nw
+
 
 volumes:
   pg_data_todolist:
