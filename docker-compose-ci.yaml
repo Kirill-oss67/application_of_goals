@@ -1,9 +1,64 @@
 version: '3.9'
+
 services:
-  flask_web:
-    image: yakovkirilldeveloper/application_of_goals:$GITHUB_REF_NAME-$GITHUB_RUN_ID
+
+  front:
+    image: sermalenk/skypro-front:lesson-34
     ports:
-      - 80:80
+      - "80:80"
+    depends_on:
+    - postgres
+    - api
+    networks:
+    - todolist
+
+
+  api:
+    image: yakovkirilldeveloper/application_of_goals:$GITHUB_REF_NAME-$GITHUB_RUN_ID
+    depends_on:
+      postgres:
+        condition: service_healthy
+      migrations:
+        condition: service_completed_successfully
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./.env:/code/.env
+    networks:
+        - todolist
+
+  migrations:
+    image: yakovkirilldeveloper/application_of_goals:$GITHUB_REF_NAME-$GITHUB_RUN_ID
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./.env:/code/.env
+    networks:
+      - todolist
+    command: python ./manage.py migrate
+
+
+  postgres:
+    image: postgres:13.0-alpine
     restart: always
+    env_file:
+      - .env_example
+    volumes:
+      - pg_data_todolist:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d postgres" ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    ports:
+      - "5432:5432"
+    networks:
+      - todolist
 
+volumes:
+  pg_data_todolist:
 
+networks:
+  todolist:
+    driver: bridge
