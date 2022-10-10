@@ -16,7 +16,13 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
-
+    env:
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      DEBUG_MODE: ${{ secrets.DEBUG_MODE }}
+      POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
     steps:
       - name: clone code
         uses: actions/checkout@v2
@@ -24,14 +30,15 @@ jobs:
         run: |
           mkdir deploy
           cat docker-compose-ci.yaml | envsubst > deploy/docker-compose.yaml
+          cat deploy/.env | envsubst > deploy/.env
       - name: copy to server
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          source: "deploy/docker-compose.yaml"
-          target: "django_api"
+          source: "deploy/docker-compose.yaml,deploy/.env"
+          target: "todolist"
           strip_components: 1
       - name: deploy app
         uses: appleboy/ssh-action@master
@@ -40,7 +47,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           script: |
-            cd flask_api_ci
+            cd todolist
             echo ${{ secrets.PASSWORD }} | sudo -S docker-compose up -d
 
 

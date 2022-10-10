@@ -1,0 +1,9 @@
+version: '3.9'
+services:
+  flask_web:
+    image: yakovkirilldeveloper/application_of_goals:$GITHUB_REF_NAME-$GITHUB_RUN_ID
+    ports:
+      - 80:80
+    restart: always
+
+
