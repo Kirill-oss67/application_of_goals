@@ -33,7 +33,7 @@ services:
     build:
       context: .
     ports:
-      - '80:80'
+      - '8000:80'
     depends_on:
       postgres:
         condition: service_healthy
