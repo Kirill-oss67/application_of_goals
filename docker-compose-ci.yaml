@@ -23,7 +23,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./.env:/code/.env
+      - ./.env_example:/code/.env_example
     networks:
         - todolist
 
@@ -33,7 +33,7 @@ services:
       postgres:
         condition: service_healthy
     volumes:
-      - ./.env:/code/.env
+      - ./.env_example:/code/.env_example
     networks:
       - todolist
     command: python ./manage.py migrate

@@ -30,14 +30,14 @@ jobs:
         run: |
           mkdir deploy
           cat docker-compose-ci.yaml | envsubst > deploy/docker-compose.yaml
-          cat .env | envsubst > deploy/.env
+          cat .env_example | envsubst > deploy/.env_example
       - name: copy to server
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          source: "deploy/docker-compose.yaml,deploy/.env"
+          source: "deploy/docker-compose.yaml,deploy/.env_example"
           target: "todolist"
           strip_components: 1
       - name: deploy app
