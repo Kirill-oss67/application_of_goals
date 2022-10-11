@@ -22,6 +22,7 @@ services:
         condition: service_completed_successfully
     env_file:
       - ./.env_example
+
     networks:
       - backend_nw
 
