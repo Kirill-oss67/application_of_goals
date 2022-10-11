@@ -25,12 +25,12 @@ jobs:
       POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
     steps:
       - name: clone code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: render configs
         run: |
           mkdir deploy
           cat docker-compose-ci.yaml | envsubst > deploy/docker-compose.yaml
-          cat .env_example | envsubst > deploy/.env_example
+          cat todolist/.env_example  | envsubst > deploy/.env_example
       - name: copy to server
         uses: appleboy/scp-action@master
         with:
