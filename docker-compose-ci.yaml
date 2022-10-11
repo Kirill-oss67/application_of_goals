@@ -14,7 +14,7 @@ services:
 
 
   api:
-    image: yakovkirilldeveloper/application_of_goals:$GITHUB_REF_NAME-$GITHUB_RUN_ID
+    image: yakovkirilldeveloper/application_of_goals:latest
     depends_on:
       postgres:
         condition: service_healthy
@@ -27,7 +27,7 @@ services:
       - backend_nw
 
   migrations:
-    image: yakovkirilldeveloper/application_of_goals:$GITHUB_REF_NAME-$GITHUB_RUN_ID
+    image: yakovkirilldeveloper/application_of_goals:latest
     depends_on:
       postgres:
         condition: service_healthy
