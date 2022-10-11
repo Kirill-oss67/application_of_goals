@@ -25,7 +25,7 @@ services:
     env_file:
       - .env_example
     volumes:
-      - ./.env_example
+      - ./.env_example:/code/.env_example
     networks:
       - backend_nw
 
@@ -37,7 +37,7 @@ services:
     env_file:
       - .env_example
     volumes:
-      - ./.env_example
+      - ./.env_example:/code/.env_example
     networks:
       - backend_nw
     command: python ./manage.py migrate
