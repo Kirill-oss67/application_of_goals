@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: clone code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: docker build
         run: docker build -t ${{ secrets.DOCKER_NAME }}/application_of_goals:$GITHUB_REF_NAME-$GITHUB_RUN_ID .
       - name: docker hub login
