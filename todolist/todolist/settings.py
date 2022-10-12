@@ -110,7 +110,7 @@ AUTH_USER_MODEL = 'core.User'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-DATABASE_URL = env('DATABASE_URL')
+
 STATIC_URL = 'static/'
 
 # Default primary key field type
