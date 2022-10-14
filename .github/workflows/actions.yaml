@@ -48,6 +48,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           script: |
             cd todolist
+            
             docker-compose up -d
       - name: Clear after deploy
         if: always()
