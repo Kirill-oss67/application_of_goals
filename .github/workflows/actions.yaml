@@ -40,6 +40,15 @@ jobs:
           source: "deploy/docker-compose.yaml,deploy/.env_example"
           target: "todolist"
           strip_components: 1
+      - name: Clear before deploy
+        if: always()
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            docker system prune -a -f
       - name: deploy app
         uses: appleboy/ssh-action@master
         with:
@@ -49,15 +58,7 @@ jobs:
           script: |
             cd todolist
             docker-compose up -d
-      - name: Clear after deploy
-        if: always()
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          script: |
-            docker system prune -a -f
+
 
 
 
