@@ -3,7 +3,7 @@ from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
-from todolist.core.models import User
+from .models import User
 
 
 class PasswordField(serializers.CharField):
