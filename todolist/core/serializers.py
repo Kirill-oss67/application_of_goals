@@ -31,3 +31,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
         del validated_data['password_repeat']
         validated_data['password'] = make_password(validated_data['password'])
         return super(CreateUserSerializer, self).create(validated_data)
+
+
+# class LoginSerializer(serializers.ModelSerializer):
+#     username = serializers.CharField()
