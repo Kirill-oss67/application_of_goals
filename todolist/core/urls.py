@@ -1,6 +1,6 @@
-from django.contrib import admin
 from django.urls import path
+from todolist.core.views import SignupView
 
 urlpatterns = [
-
+    path('gignup', SignupView.as_view(), name='signup')
 ]
