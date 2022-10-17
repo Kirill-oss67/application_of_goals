@@ -43,12 +43,15 @@ class LoginSerializer(serializers.ModelSerializer):
         fields = ('username', 'password')
 
     def create(self, validated_data: dict):
-        if not(user := authenticate(
-            username=validated_data['username'],
-            password = validated_data['password']
+        if not (user := authenticate(
+                username=validated_data['username'],
+                password=validated_data['password']
         )):
             raise AuthenticationFailed
         return user
 
-# class ProfileSerializer(serializers.ModelSerializer):
-#     pass
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'first_name', 'last_name', 'email')
