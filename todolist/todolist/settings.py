@@ -129,6 +129,7 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.vk.VKOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
+
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
 SOCIAL_AUTH_LOGIN_ERROR_URL = '/login-error/'
