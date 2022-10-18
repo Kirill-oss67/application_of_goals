@@ -59,8 +59,8 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 class UpdatePasswordSerializer(serializers.Serializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
-    old_password = PasswordField(read_only=True)
-    new_password = PasswordField(read_only=True)
+    old_password = PasswordField(required=True)
+    new_password = PasswordField(required=True)
 
     def validate(self, attrs: dict):
         if not (user := attrs['user']):
