@@ -23,6 +23,9 @@ jobs:
       POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
       POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+      VK_OAUTH2_KEY: ${{ secrets.VK_OAUTH2_KEY }}
+      VK_OAUTH2_SECRET: ${{ secrets.VK_OAUTH2_SECRET }}
+
     steps:
       - name: clone code
         uses: actions/checkout@v3
