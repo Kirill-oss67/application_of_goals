@@ -8,7 +8,7 @@ from .models import User
 
 
 class PasswordField(serializers.CharField):
-    def __int__(self, **kwargs):
+    def __init__(self, **kwargs):
         kwargs['style'] = {'input_type': 'password'}
         kwargs.setdefault("write_only", True)
         super().__init__(**kwargs)
@@ -68,7 +68,6 @@ class UpdatePasswordSerializer(serializers.Serializer):
         if not user.check_password(attrs['old_password']):
             raise ValidationError({'old_password': 'пароль некорректный'})
         return attrs
-
 
     def create(self, validated_data: dict) -> User:
         raise NotImplementedError
