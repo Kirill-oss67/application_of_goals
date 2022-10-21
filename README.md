@@ -51,6 +51,7 @@ python: https://github.com/github/gitignore/blob/main/Python.gitignore
 Описал UpdatePasswordSerializer для реализации смены пароля
 Описал View и добавил его в core/urls.py
 
+
 Добавил поддержку входа через социальные сети (VK)
 
 
