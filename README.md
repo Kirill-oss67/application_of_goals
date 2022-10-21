@@ -24,15 +24,34 @@ python: https://github.com/github/gitignore/blob/main/Python.gitignore
 
 Создал модель User в core.models наследовавшись от AbstractUser
 
-## run database
+Собрал dockerfile, добавил файл .dockerignore
 
-docker run --name "postgresql" -e POSTGRES_PASSWORD="1q2w3e4r5t" -e POSTGRES_USER="admin" -e POSTGRES_DB="todolist_db"
--p 5432:5432 -d postgres:13.0-alpine
-собрал docker-compose.yaml
-
+Собрал docker-compose.yaml и docker-compose.yaml-сi , создал директорию . github, в ней директорию workflows с файлом actions.yaml
 настройка Continue Integration и Continue Deploy
 
-установка djangorestframework
+Установил djangorestframework, social-auth-app-django
+
+В todolist/urls.py добавил урлы из core/urls.py и social_django
+
+Создал serializers.py в приложении core
+
+Описал CreateUserSerializer для регистрации
+Описал View для регистрации пользователя и добавил его в core/urls.py
+
+Описал LoginSerializer для реализации входа по логину/паролю
+Описал View и добавил его в core/urls.py
+
+Описал ProfileSerializer для реализации получения/обновления текущего пользователя
+Описал View и добавил его в core/urls.py
+
+В предыдущий метод API /core/profile добавил реализацию HTTP метода DELETE
+
+Описал UpdatePasswordSerializer для реализации смены пароля
+Описал View и добавил его в core/urls.py
+
+Добавил поддержку входа через социальные сети (VK)
+
+
 
 
 
