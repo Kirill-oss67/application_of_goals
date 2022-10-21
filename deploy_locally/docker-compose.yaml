@@ -1,0 +1,66 @@
+version: '3.9'
+
+services:
+
+  front:
+    image: sermalenk/skypro-front:lesson-35
+    ports:
+      - "80:80"
+    depends_on:
+      - postgres
+      - api
+    networks:
+      - backend_nw
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+
+  api:
+    build: ../.
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - ../todolist/.env_locally
+    volumes:
+      - ../todolist/.env_example:/code/.env_locally
+      - ../.:/code
+    networks:
+      - backend_nw
+
+
+  migrations:
+    build: ../.
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - ../todolist/.env_locally
+    volumes:
+      - ../todolist/.env_example:/code/.env_locally
+    networks:
+      - backend_nw
+    command: python ./todolist/manage.py migrate
+
+  postgres:
+    image: postgres:13.0-alpine
+    restart: always
+    env_file:
+      - ../todolist/.env_locally
+    volumes:
+      - pg_data_todolist:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U admin -d postgres" ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - backend_nw
+    ports:
+      - "5432:5432"
+
+volumes:
+  pg_data_todolist:
+
+networks:
+  backend_nw:
+    driver: bridge

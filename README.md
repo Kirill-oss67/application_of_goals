@@ -9,6 +9,7 @@
 Подключил контроль версий, создал репозиторий в GITHUB(https://github.com/Kirill-oss67/application_of_goals.git),
 связал с текущим проектом
 
+
 Добавил файл ".gitignore" в репозиторий, использовал готовый шаблон для
 python: https://github.com/github/gitignore/blob/main/Python.gitignore
 
