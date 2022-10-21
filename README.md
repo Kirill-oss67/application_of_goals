@@ -19,6 +19,7 @@ python: https://github.com/github/gitignore/blob/main/Python.gitignore
 
 Активировал виртуальное окружение.
 
+
 Добавил requirement.txt в корень проекта
 
 Создал первое приложение "core"
