@@ -22,3 +22,9 @@ class GoalCategory(BaseModel):
 
     def __str__(self):
         return self.title
+
+class Goal(BaseModel):
+    class Meta:
+        verbose_name = "Цель"
+        verbose_name_plural = "Цели"
+
