@@ -38,6 +38,7 @@ services:
       - backend_nw
     command: python ./todolist/manage.py migrate
 
+
   postgres:
     image: postgres:13.0-alpine
     restart: always
