@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
-from todolist.core.models import User
+from core.models import User
 
 
 class GoalCategory(models.Model):
