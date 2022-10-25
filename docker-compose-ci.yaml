@@ -37,8 +37,9 @@ services:
     networks:
       - backend_nw
     command:
-      - python ./todolist/manage.py makemigrations
-      - python ./todolist/manage.py migrate
+      - python ./todolist/python ./manage.py makemigrations
+      - python ./todolist/python ./manage.py migrate
+
 
   postgres:
     image: postgres:13.0-alpine
