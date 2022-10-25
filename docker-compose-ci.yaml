@@ -37,7 +37,6 @@ services:
     networks:
       - backend_nw
     command:
-      - python ./todolist/python ./manage.py makemigrations
       - python ./todolist/python ./manage.py migrate
 
 
