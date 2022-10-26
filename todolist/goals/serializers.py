@@ -71,6 +71,6 @@ class GoalCommentSerializer(serializers.ModelSerializer):
     user = ProfileSerializer(read_only=True)
 
     class Meta:
-        model = Goal
+        model = GoalComment
         fields = "__all__"
         read_only_fields = ("id", "created", "updated", "user", "goal")
