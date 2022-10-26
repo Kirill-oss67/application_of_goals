@@ -40,7 +40,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          source: "deploy/docker-compose.yaml,deploy/.env_deploy"
+          source: "deploy/docker-compose.yaml,deploy/.env_example"
           target: "todolist"
           strip_components: 1
       - name: Clear before deploy

@@ -22,7 +22,7 @@ services:
     env_file:
       - ../todolist/.env_locally
     volumes:
-      - ../todolist/.env_deploy:/code/.env_locally
+      - ../todolist/.env_example:/code/.env_locally
       - ../.:/code
     networks:
       - backend_nw
@@ -36,7 +36,7 @@ services:
     env_file:
       - ../todolist/.env_locally
     volumes:
-      - ../todolist/.env_deploy:/code/.env_locally
+      - ../todolist/.env_example:/code/.env_locally
     networks:
       - backend_nw
     command: python ./todolist/manage.py migrate
