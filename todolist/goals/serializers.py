@@ -4,7 +4,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import PermissionDenied
 
 from core.serializers import ProfileSerializer
-from .models import GoalCategory, Goal
+from .models import GoalCategory, Goal, GoalComment
 
 
 class GoalCategoryCreateSerializer(serializers.ModelSerializer):
@@ -62,7 +62,7 @@ class GoalCommentCreateSerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
-        model = Goal
+        model = GoalComment
         fields = "__all__"
         read_only_fields = ("id", "created", "updated", "user")
 
