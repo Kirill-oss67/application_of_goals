@@ -21,7 +21,7 @@ services:
       migrations:
         condition: service_completed_successfully
     env_file:
-      - .env_example
+      - todolist/.env_deploy
     networks:
       - backend_nw
 
@@ -31,9 +31,9 @@ services:
       postgres:
         condition: service_healthy
     env_file:
-      - ./.env_example
+      - todolist/.env_deploy
     volumes:
-      - ./.env_example:/code/.env_example
+      - ./.env_deploy:/code/.env_deploy
     networks:
       - backend_nw
     command: python ./todolist/manage.py migrate
@@ -43,7 +43,7 @@ services:
     image: postgres:13.0-alpine
     restart: always
     env_file:
-      - .env_example
+      - todolist/.env_deploy
     volumes:
       - pg_data_todolist:/var/lib/postgresql/data
     healthcheck:
