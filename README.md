@@ -9,7 +9,6 @@
 Подключил контроль версий, создал репозиторий в GITHUB(https://github.com/Kirill-oss67/application_of_goals.git),
 связал с текущим проектом
 
-
 Добавил файл ".gitignore" в репозиторий, использовал готовый шаблон для
 python: https://github.com/github/gitignore/blob/main/Python.gitignore
 
@@ -19,7 +18,6 @@ python: https://github.com/github/gitignore/blob/main/Python.gitignore
 
 Активировал виртуальное окружение.
 
-
 Добавил requirement.txt в корень проекта
 
 Создал первое приложение "core"
@@ -28,7 +26,8 @@ python: https://github.com/github/gitignore/blob/main/Python.gitignore
 
 Собрал dockerfile, добавил файл .dockerignore
 
-Собрал docker-compose.yaml и docker-compose.yaml-сi , создал директорию . github, в ней директорию workflows с файлом actions.yaml
+Собрал docker-compose.yaml и docker-compose.yaml-сi , создал директорию . github, в ней директорию workflows с файлом
+actions.yaml
 настройка Continue Integration и Continue Deploy
 
 Установил djangorestframework, social-auth-app-django
@@ -50,7 +49,6 @@ python: https://github.com/github/gitignore/blob/main/Python.gitignore
 
 Описал UpdatePasswordSerializer для реализации смены пароля
 Описал View и добавил его в core/urls.py
-
 
 Добавил поддержку входа через социальные сети (VK)
 

@@ -41,12 +41,30 @@ class Goal(BaseModel):
         high = 3, "Высокий"
         critical = 4, "Критический"
 
-    title = models.CharField(verbose_name='Название', max_length=255)
-    description = models.TextField(verbose_name='Описание', null=True, blank=True)
-
+    title = models.CharField(verbose_name='Название',
+                             max_length=255)
+    description = models.TextField(verbose_name='Описание',
+                                   null=True,
+                                   blank=True)
+    category = models.ForeignKey(to=GoalCategory,
+                                 verbose_name="Категория",
+                                 on_delete=models.CASCADE,
+                                 related_name='goals',
+                                 null=True)
+    due_date = models.DateTimeField(verbose_name='Дата выполнения',
+                                    null=True,
+                                    blank=True)
+    user = models.ForeignKey(User, verbose_name="Автор",
+                             on_delete=models.PROTECT,
+                             related_name='goals',
+                             null=True)
     status = models.PositiveSmallIntegerField(
-        verbose_name="Статус", choices=Status.choices, default=Status.to_do
+        verbose_name="Статус",
+        choices=Status.choices,
+        default=Status.to_do
     )
     priority = models.PositiveSmallIntegerField(
-        verbose_name="Приоритет", choices=Priority.choices, default=Priority.medium
+        verbose_name="Приоритет",
+        choices=Priority.choices,
+        default=Priority.medium
     )

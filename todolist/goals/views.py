@@ -1,9 +1,10 @@
+from django.db.models import Q
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework import permissions, filters
 from rest_framework.pagination import LimitOffsetPagination
 
-from .models import GoalCategory
-from .serializers import GoalCreateSerializer, GoalCategorySerializer
+from .models import GoalCategory, Goal
+from .serializers import GoalCategoryCreateSerializer, GoalCategorySerializer, GoalCreateSerializer, GoalSerializer
 
 
 class GoalCategoryListView(ListAPIView):
@@ -28,7 +29,7 @@ class GoalCategoryListView(ListAPIView):
 class GoalCategoryCreateView(CreateAPIView):
     model = GoalCategory
     permission_classes = [permissions.IsAuthenticated]
-    serializer_class = GoalCreateSerializer
+    serializer_class = GoalCategoryCreateSerializer
 
 
 class GoalCategoryView(RetrieveUpdateDestroyAPIView):
@@ -41,5 +42,40 @@ class GoalCategoryView(RetrieveUpdateDestroyAPIView):
 
     def perform_destroy(self, instance: GoalCategory):
         instance.is_deleted = True
-        instance.save(update_fields=('is_deleted', ))
+        instance.save(update_fields=('is_deleted',))
         return instance
+
+
+class GoalCreateView(CreateAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = GoalCreateSerializer
+
+
+class GoalListView(ListAPIView):
+    model = Goal
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = GoalSerializer
+    pagination_class = LimitOffsetPagination
+    filter_backends = [
+        filters.OrderingFilter,
+        filters.SearchFilter,
+    ]
+    ordering_fields = ["title", "created"]
+    ordering = ["title"]
+    search_fields = ["title", 'description']
+
+    def get_queryset(self):
+        return Goal.objects.filter(
+            Q(user_id=self.request.user.id) & ~Q(status=Goal.Status.archived)
+        )
+
+
+class GoalView(RetrieveUpdateDestroyAPIView):
+    model = Goal
+    serializer_class = GoalSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Goal.objects.filter(
+            Q(user_id=self.request.user.id) & ~Q(status=Goal.Status.archived)
+        )
