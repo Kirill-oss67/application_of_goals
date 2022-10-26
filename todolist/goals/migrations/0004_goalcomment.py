@@ -6,7 +6,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('goals', '0003_goal_category_goal_due_date_goal_user'),
@@ -20,8 +19,12 @@ class Migration(migrations.Migration):
                 ('created', models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')),
                 ('updated', models.DateTimeField(auto_now=True, verbose_name='Дата последнего обновления')),
                 ('text', models.TextField(verbose_name='Текст')),
-                ('goal', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='goals.goal', verbose_name='Цель')),
-                ('user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, related_name='comments', to=settings.AUTH_USER_MODEL, verbose_name='Автор')),
+                ('goal',
+                 models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='comments',
+                                   to='goals.goal', verbose_name='Цель')),
+                ('user',
+                 models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, related_name='comments',
+                                   to=settings.AUTH_USER_MODEL, verbose_name='Автор')),
             ],
             options={
                 'verbose_name': 'Комментарий',

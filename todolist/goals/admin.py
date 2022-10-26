@@ -20,7 +20,7 @@ class GoalAdmin(admin.ModelAdmin):
 
 
 class GoalCommentAdmin(admin.ModelAdmin):
-    list_display = ("id", "user", "text", )
+    list_display = ("id", "user", "text",)
     list_display_links = ('text',)
     search_fields = ("text",)
     readonly_fields = ('created', 'updated',)
@@ -29,5 +29,3 @@ class GoalCommentAdmin(admin.ModelAdmin):
 admin.site.register(GoalCategory, GoalCategoryAdmin)
 admin.site.register(Goal, GoalAdmin)
 admin.site.register(GoalComment, GoalCommentAdmin)
-
-

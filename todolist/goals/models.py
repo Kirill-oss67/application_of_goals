@@ -90,4 +90,3 @@ class GoalComment(BaseModel):
 
     def __str__(self):
         return self.text
-
