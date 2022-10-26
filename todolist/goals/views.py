@@ -56,7 +56,7 @@ class GoalListView(ListAPIView):
     model = Goal
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = GoalSerializer
-    pagination_class = LimitOffsetPagination
+    filterset_fields = ['category', 'priority', 'status']
     filter_backends = [
         filters.OrderingFilter,
         filters.SearchFilter,
@@ -91,8 +91,7 @@ class GoalCommentListView(ListAPIView):
     model = GoalComment
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = GoalCommentSerializer
-    pagination_class = LimitOffsetPagination
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, ]
+    filter_backends = [filters.OrderingFilter, ]
     filterset_fields = ['goal']
     ordering = ["-created"]
 
