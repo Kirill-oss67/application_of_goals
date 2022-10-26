@@ -4,6 +4,7 @@ from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateDe
 from rest_framework import permissions, filters
 from rest_framework.pagination import LimitOffsetPagination
 
+from .filters import GoalDateFilter
 from .models import GoalCategory, Goal, GoalComment
 from .serializers import GoalCategoryCreateSerializer, GoalCategorySerializer, GoalCreateSerializer, GoalSerializer, \
     GoalCommentCreateSerializer, GoalCommentSerializer
@@ -56,11 +57,11 @@ class GoalListView(ListAPIView):
     model = Goal
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = GoalSerializer
-    filterset_fields = ['category', 'priority', 'status']
-    filter_backends = [
-        filters.OrderingFilter,
-        filters.SearchFilter,
-    ]
+    filterset_class = GoalDateFilter
+    filter_backends = [DjangoFilterBackend,
+                       filters.OrderingFilter,
+                       filters.SearchFilter,
+                       ]
     ordering_fields = ["title", "created"]
     ordering = ["title"]
     search_fields = ["title", 'description']
@@ -91,7 +92,7 @@ class GoalCommentListView(ListAPIView):
     model = GoalComment
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = GoalCommentSerializer
-    filter_backends = [filters.OrderingFilter, ]
+    filter_backends = [filters.OrderingFilter, filters.SearchFilter]
     filterset_fields = ['goal']
     ordering = ["-created"]
 
