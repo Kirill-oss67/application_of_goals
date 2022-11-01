@@ -11,8 +11,6 @@ class BaseModel(models.Model):
         abstract = True
 
 
-
-
 class GoalCategory(BaseModel):
     class Meta:
         verbose_name = "Категория"
