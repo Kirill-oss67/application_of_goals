@@ -1,0 +1,69 @@
+name: CI actions
+on: [ push ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: clone code
+        uses: actions/checkout@v3
+      - name: docker build
+        run: docker build -t ${{ secrets.DOCKER_NAME }}/application_of_goals:$GITHUB_REF_NAME-$GITHUB_RUN_ID .
+      - name: docker hub login
+        run: echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_NAME }} --password-stdin
+      - name: docker push
+        run: docker push ${{ secrets.DOCKER_NAME }}/application_of_goals:$GITHUB_REF_NAME-$GITHUB_RUN_ID
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      DEBUG_MODE: ${{ secrets.DEBUG_MODE }}
+      POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+      VK_OAUTH2_KEY: ${{ secrets.VK_OAUTH2_KEY }}
+      VK_OAUTH2_SECRET: ${{ secrets.VK_OAUTH2_SECRET }}
+
+    steps:
+      - name: clone code
+        uses: actions/checkout@v3
+      - name: render configs
+        run: |
+          mkdir deploy
+          cat docker-compose-ci.yaml | envsubst > deploy/docker-compose.yaml
+          cat todolist/.env_example  | envsubst > deploy/.env_example
+      - name: copy to server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          source: "deploy/docker-compose.yaml,deploy/.env_example"
+          target: "todolist"
+          strip_components: 1
+      - name: Clear before deploy
+        if: always()
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            docker system prune -a -f
+      - name: deploy app
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            cd todolist
+            docker-compose up -d
+
+
+
+
+
+

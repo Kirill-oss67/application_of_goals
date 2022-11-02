@@ -153,5 +153,5 @@ cython_debug/
 .idea/
 .env
 .dockerignore
-.github
 superuser.py
+.gitignore
