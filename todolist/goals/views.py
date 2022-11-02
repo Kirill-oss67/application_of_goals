@@ -1,4 +1,3 @@
-from django.db import transaction
 from django.db.models import Q
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView
@@ -43,15 +42,13 @@ class GoalCategoryView(RetrieveUpdateDestroyAPIView):
         return GoalCategory.objects.filter(user=self.request.user, is_deleted=False)
 
     def perform_destroy(self, instance: GoalCategory):
-        with transaction.atomic():
-            instance.is_deleted = True
-            goal = Goal.objects.filter(category=instance.id)
-            goal.status = 4
-        return instance
         # удалять связанные цели
-        # instance.is_deleted = True
-        # instance.save(update_fields=('is_deleted',))
-        # return instance
+        instance.is_deleted = True
+        for goal in instance.goals.all():
+            goal.status = Goal.Status.archived
+            goal.save()
+        instance.save(update_fields=('is_deleted',))
+        return instance
 
 
 class GoalCreateView(CreateAPIView):
