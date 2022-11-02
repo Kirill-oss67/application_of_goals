@@ -51,6 +51,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           script: |
+            docker-compose down
             docker system prune -a -f
       - name: deploy app
         uses: appleboy/ssh-action@master
