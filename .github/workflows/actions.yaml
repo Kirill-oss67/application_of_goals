@@ -39,7 +39,7 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
+          password: ${{ secrets.NEW_PASSWORD }}
           source: "deploy/docker-compose.yaml,deploy/.env_example"
           target: "todolist"
           strip_components: 1
@@ -49,7 +49,7 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
+          password: ${{ secrets.NEW_PASSWORD }}
           script: |
             docker-compose down
             docker system prune -a -f
@@ -58,7 +58,7 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
+          password: ${{ secrets.NEW_PASSWORD }}
           script: |
             cd todolist
             docker-compose up -d
