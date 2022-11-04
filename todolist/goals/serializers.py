@@ -22,7 +22,7 @@ class GoalCategoryCreateSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError('нет прав на доступ для удаления категории')
 
         if not BoardParticipant.objects.filter(board=value,
-                                               role__in=[BoardParticipant.role.owner, BoardParticipant.Role.writer],
+                                               role__in=[BoardParticipant.Role.owner, BoardParticipant.Role.writer],
                                                user=self.context['request'].user).exists():
             raise serializers.ValidationError('ты должен быть владельцем или редактором')
         return value
