@@ -40,4 +40,3 @@ class GetUpdatesResponse(BaseModel):
 class SendMessageResponse(BaseModel):
     ok: bool
     result: Message
-

@@ -6,7 +6,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -19,9 +18,11 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('chat_id', models.BigIntegerField(unique=True, verbose_name='Chat id')),
-                ('username', models.CharField(blank=True, default=None, max_length=255, null=True, verbose_name='username')),
+                ('username',
+                 models.CharField(blank=True, default=None, max_length=255, null=True, verbose_name='username')),
                 ('verification_code', models.CharField(blank=True, default=None, max_length=32, null=True)),
-                ('user', models.ForeignKey(default=None, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(default=None, null=True, on_delete=django.db.models.deletion.CASCADE,
+                                           to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]
