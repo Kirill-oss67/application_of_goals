@@ -26,7 +26,7 @@ class GoalCategory(BaseModel):
         verbose_name_plural = "Категории"
 
     board = models.ForeignKey(
-        Board, verbose_name="Доска", on_delete=models.PROTECT, related_name="categories"
+        Board, verbose_name="Доска", on_delete=models.PROTECT, related_name="categories", default=None
     )
 
     title = models.CharField(verbose_name="Название", max_length=255)
