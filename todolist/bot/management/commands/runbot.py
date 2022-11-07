@@ -4,6 +4,7 @@ from django.core.management import BaseCommand
 
 from bot.models import TgUser
 from bot.tg.client import TgClient
+from bot.tg.fsm.memory_storage import MemoryStorage
 from bot.tg.models import Message
 from todolist.todolist import settings
 
@@ -12,6 +13,7 @@ class Command(BaseCommand):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.tg_client = TgClient(settings.BOT_TOKEN)
+        self.storage = MemoryStorage()
 
     @staticmethod
     def _generate_verification_code() -> str:
@@ -26,6 +28,15 @@ class Command(BaseCommand):
             text=f'[verification_code] {tg_user.verification_code}'
         )
 
+    def handle_verified_user(self, msg: Message, tg_user: TgUser):
+        if msg.text == '/goals':
+            pass
+        elif msg.text == '/create':
+            pass
+        elif msg.text == '/cancel' and self.storage.get_state(tg_user.chat_id):
+            self.storage.reset(tg_user.chat_id)
+            self.tg_client.send_message(msg.chat.id, '[canceled]')
+
     def handle_message(self, msg: Message):
         tg_user, _ = TgUser.objects.select_related('user').get_or_create(
             chat_id=msg.chat.id,
@@ -34,7 +45,7 @@ class Command(BaseCommand):
             }
         )
         if tg_user.user:
-            self.tg_client.send_message(chat_id=msg.chat.id, text="ты уже верифицирован")
+            self.handle_verified_user(msg=msg, tg_user=tg_user)
         else:
             self.handle_unverified_user(msg=msg, tg_user=tg_user)
 
