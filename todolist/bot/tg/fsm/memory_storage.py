@@ -22,7 +22,7 @@ class MemoryStorage(Storage):
     def get_state(self, chat_id: int) -> StorageData | None:
         return self._resolve_chat(chat_id).state
 
-    def get_data(self, chat_id:int)-> dict:
+    def get_data(self, chat_id: int) -> dict:
         return self._resolve_chat(chat_id).data
 
     def set_state(self, chat_id: int, state: Enum) -> None:
@@ -42,8 +42,3 @@ class MemoryStorage(Storage):
 
     def update_date(self, chat_id: int, **kwargs) -> None:
         self._resolve_chat(chat_id).data.update(**kwargs)
-
-    def get_all_data(self, chat_id:int) -> StorageData:
-        return self._resolve_chat(chat_id)
-
-

@@ -1,7 +1,6 @@
 version: '3.9'
 
 services:
-
   front:
     image: sermalenk/skypro-front:lesson-38
     ports:
@@ -12,6 +11,19 @@ services:
     networks:
       - backend_nw
 
+  bot:
+    image: yakovkirilldeveloper/application_of_goals:$GITHUB_REF_NAME-$GITHUB_RUN_ID
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - todolist/.env_example
+    environment:
+      POSTGRES_HOST: postgres
+    command: python ./todolist/manage.py runbot
+    networks:
+      - backend_nw
 
   api:
     image: yakovkirilldeveloper/application_of_goals:$GITHUB_REF_NAME-$GITHUB_RUN_ID

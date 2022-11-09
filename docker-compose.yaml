@@ -1,6 +1,21 @@
 version: '3.9'
 
 services:
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - todolist/.env_example
+    environment:
+      POSTGRES_HOST: postgres
+    command: python ./todolist/manage.py runbot
+    networks:
+      - backend_nw
 
   front:
     image: sermalenk/skypro-front:lesson-38
@@ -31,7 +46,7 @@ services:
 
   api:
     build:
-      context: application_of_goals
+      context: .
     ports:
       - '8000:8000'
     depends_on:
@@ -46,7 +61,7 @@ services:
 
   migrations:
     build:
-      context: application_of_goals
+      context: .
     depends_on:
       postgres:
         condition: service_healthy
