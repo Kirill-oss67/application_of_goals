@@ -25,6 +25,7 @@ jobs:
       POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
       VK_OAUTH2_KEY: ${{ secrets.VK_OAUTH2_KEY }}
       VK_OAUTH2_SECRET: ${{ secrets.VK_OAUTH2_SECRET }}
+      BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
 
     steps:
       - name: clone code
