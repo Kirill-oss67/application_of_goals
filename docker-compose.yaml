@@ -10,7 +10,7 @@ services:
       postgres:
         condition: service_healthy
     env_file:
-      - todolist/todolist/.env_example
+      - todolist/.env_example
     environment:
       POSTGRES_HOST: postgres
     command: python ./todolist/manage.py runbot
@@ -31,7 +31,7 @@ services:
     image: postgres:13.0-alpine
     restart: always
     env_file:
-      - todolist/todolist/.env_example
+      - todolist/.env_example
     volumes:
       - pg_data_todolist:/var/lib/postgresql/data
     healthcheck:
@@ -55,7 +55,7 @@ services:
       migrations:
         condition: service_completed_successfully
     env_file:
-      - todolist/todolist/.env_example
+      - todolist/.env_example
     networks:
       - backend_nw
 
@@ -66,7 +66,7 @@ services:
       postgres:
         condition: service_healthy
     env_file:
-      - todolist/todolist/.env_example
+      - todolist/.env_example
     command: python ./todolist/manage.py migrate
     networks:
       - backend_nw
