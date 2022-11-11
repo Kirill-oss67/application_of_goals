@@ -3,7 +3,7 @@ version: '3.9'
 services:
   bot:
     build:
-      context: .
+      context: application_of_goals
       dockerfile: Dockerfile
     restart: always
     depends_on:
@@ -46,7 +46,7 @@ services:
 
   api:
     build:
-      context: .
+      context: application_of_goals
     ports:
       - '8000:8000'
     depends_on:
@@ -55,7 +55,7 @@ services:
       migrations:
         condition: service_completed_successfully
     env_file:
-      - .env_example
+      - todolist/.env_example
     networks:
       - backend_nw
 
