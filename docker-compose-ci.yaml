@@ -18,7 +18,7 @@ services:
       postgres:
         condition: service_healthy
     env_file:
-      - todolist/.env_example
+      - todolist/todolist/.env_example
     environment:
       POSTGRES_HOST: postgres
     command: python ./todolist/manage.py runbot
