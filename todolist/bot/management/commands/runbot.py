@@ -11,7 +11,7 @@ from bot.tg.client import TgClient
 from bot.tg.fsm.memory_storage import MemoryStorage
 from bot.tg.models import Message
 from goals.models import Goal, GoalCategory, BoardParticipant
-from todolist.todolist import settings
+from todolist import settings
 
 logger = logging.getLogger(__name__)
 
