@@ -43,7 +43,7 @@ services:
       postgres:
         condition: service_healthy
     env_file:
-      - ./.env_example
+      - .env_example
     volumes:
       - ./.env_example:/code/.env_example
     networks:
