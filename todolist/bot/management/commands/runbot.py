@@ -81,12 +81,12 @@ class Command(BaseCommand):
                     id=cat_id
             ).exists():
                 self.storage.update_date(chat_id=msg.chat.id, cat_id=cat_id)
-                self.tg_client.send_message(msg.chat_id, '[set title]')
+                self.tg_client.send_message(msg.chat.id, '[set title]')
                 self.storage.set_state(msg.chat.id, state=StateEnum.CHOSEN_CATEGORY)
             else:
-                self.tg_client.send_message(msg.chat_id, '[category not found]')
+                self.tg_client.send_message(msg.chat.id, '[category not found]')
         else:
-            self.tg_client.send_message(msg.chat_id, '[invalid category id]')
+            self.tg_client.send_message(msg.chat.id, '[invalid category id]')
 
     def handle_save_new_cat(self, msg: Message, tg_user: TgUser):
         goal = NewGoal(**self.storage.get_data(tg_user.chat_id))
@@ -98,9 +98,9 @@ class Command(BaseCommand):
                 user_id=tg_user.user_id,
                 due_date=datetime.now()
             )
-            self.tg_client.send_message(msg.chat_id, '[New goal created]')
+            self.tg_client.send_message(msg.chat.id, '[New goal created]')
         else:
-            self.tg_client.send_message(msg.chat_id, '[something went wrong]')
+            self.tg_client.send_message(msg.chat.id, '[something went wrong]')
         self.storage.reset(tg_user.chat_id)
 
     def handle_verified_user(self, msg: Message, tg_user: TgUser):
@@ -108,8 +108,8 @@ class Command(BaseCommand):
             self.handle_goals_list(msg, tg_user)
         elif msg.text == '/create':
             self.handle_goal_categories_list(msg, tg_user)
-            self.storage.set_state(msg.chat_id, state=StateEnum.CREATE_CATEGORY_SELECT)
-            self.storage.set_data(msg.chat_id, data=NewGoal().dict())
+            self.storage.set_state(msg.chat.id, state=StateEnum.CREATE_CATEGORY_SELECT)
+            self.storage.set_data(msg.chat.id, data=NewGoal().dict())
 
         elif msg.text == '/cancel' and self.storage.get_state(tg_user.chat_id):
             self.storage.reset(tg_user.chat_id)
