@@ -76,7 +76,7 @@ class Command(BaseCommand):
             cat_id = int(msg.text)
             if GoalCategory.objects.filter(
                     board__participants__user_id=tg_user.user_id,
-                    board__participants__role_in=[BoardParticipant.Role.owner, BoardParticipant.Role.writer],
+                    board__participants__role__in=[BoardParticipant.Role.owner, BoardParticipant.Role.writer],
                     is_deleted=False,
                     id=cat_id
             ).exists():
