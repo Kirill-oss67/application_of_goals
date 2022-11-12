@@ -1,9 +1,24 @@
 version: '3.9'
 
 services:
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - .env_example
+    environment:
+      POSTGRES_HOST: postgres
+    command: python ./todolist/manage.py runbot
+    networks:
+      - backend_nw
 
   front:
-    image: sermalenk/skypro-front:lesson-37
+    image: sermalenk/skypro-front:lesson-38
     ports:
       - "80:80"
     depends_on:
@@ -16,7 +31,7 @@ services:
     image: postgres:13.0-alpine
     restart: always
     env_file:
-      - todolist/.env_example
+      - .env_example
     volumes:
       - pg_data_todolist:/var/lib/postgresql/data
     healthcheck:
@@ -31,7 +46,7 @@ services:
 
   api:
     build:
-      context: application_of_goals
+      context: .
     ports:
       - '8000:8000'
     depends_on:
@@ -40,18 +55,18 @@ services:
       migrations:
         condition: service_completed_successfully
     env_file:
-      - todolist/.env_example
+      - .env_example
     networks:
       - backend_nw
 
   migrations:
     build:
-      context: application_of_goals
+      context: .
     depends_on:
       postgres:
         condition: service_healthy
     env_file:
-      - todolist/.env_example
+      - .env_example
     command: python ./todolist/manage.py migrate
     networks:
       - backend_nw

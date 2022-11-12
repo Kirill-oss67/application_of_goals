@@ -119,7 +119,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-todolist/.env_example
+.env_example
 .venv
 env/
 venv/
