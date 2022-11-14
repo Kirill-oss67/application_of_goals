@@ -9,10 +9,12 @@ from .serializers import CreateUserSerializer, LoginSerializer, ProfileSerialize
 
 class SignupView(CreateAPIView):
     serializer_class = CreateUserSerializer
+    """Регистрация пользователя """
 
 
 class LoginView(GenericAPIView):
     serializer_class = LoginSerializer
+    """Авторизация пользователем """
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -26,6 +28,7 @@ class ProfileView(RetrieveUpdateDestroyAPIView):
     serializer_class = ProfileSerializer
     queryset = User.objects.all()
     permission_classes = [permissions.IsAuthenticated]
+    """Просмотр данных юзера(возможен только авторизованным пользователям"""
 
     def get_object(self) -> User:
         return self.request.user
@@ -38,6 +41,7 @@ class ProfileView(RetrieveUpdateDestroyAPIView):
 class UpdatePasswordView(UpdateAPIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = UpdatePasswordSerializer
+    """Изменение пароля пользователя"""
 
     def get_object(self) -> User:
         return self.request.user
