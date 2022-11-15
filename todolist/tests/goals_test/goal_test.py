@@ -14,7 +14,6 @@ def test_goal_create(client, get_credentials, user, goal_category):
         'category': goal_category.id,
         'status': 2,
         'priority': 3,
-        'due_date': '2022-11-15',
     }
 
     response = client.post(
