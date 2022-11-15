@@ -16,6 +16,7 @@ class PasswordField(serializers.CharField):
 
     """Сериализатор """
 
+
 class CreateUserSerializer(serializers.ModelSerializer):
     password = PasswordField(required=True)
     password_repeat = PasswordField(required=True)
