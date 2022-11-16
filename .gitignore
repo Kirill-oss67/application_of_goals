@@ -155,4 +155,4 @@ cython_debug/
 .dockerignore
 superuser.py
 .gitignore
-.env_locally
+deploy_locally/.env_locally

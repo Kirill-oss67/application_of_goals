@@ -14,6 +14,8 @@ class PasswordField(serializers.CharField):
         super().__init__(**kwargs)
         self.validators.append(validate_password)
 
+    """Сериализатор """
+
 
 class CreateUserSerializer(serializers.ModelSerializer):
     password = PasswordField(required=True)

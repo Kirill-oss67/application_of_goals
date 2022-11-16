@@ -6,7 +6,6 @@ from rest_framework.exceptions import ValidationError
 from bot.models import TgUser
 
 
-
 class TgUserSerializers(serializers.ModelSerializer):
     verification_code = serializers.CharField(write_only=True)
     tg_id = serializers.SlugField(source='chat_id', read_only=True)
